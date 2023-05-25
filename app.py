@@ -1,13 +1,13 @@
 # 以下を「app.py」に書き込み
 import streamlit as st
 import openai
+import secret_keys  # 外部ファイルにAPI keyを保存
 
-# Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
-openai.api_key = st.secrets.OpenAIAPI.openai_api_key
+openai.api_key = secret_keys.openai_api_key
 
 system_prompt = """
 あなたはダイエットを助ける優秀なパーソナルトレーナーです。
-食事メニューや、運動メニューなど、様々な側面から考えたダイエット計画を提案することができます。
+ユーザーから体重、身長、年齢、目標体重、目標期間を聞き出してそれにあった食事メニューや、運動メニューなど、様々な側面から考えたダイエット計画を提案してください。
 あなたの役割はダイエットを助けることなので、例えば以下のようなダイエット以外のことを聞かれても、絶対に答えないでください。
 
 * 旅行
@@ -44,7 +44,7 @@ def communicate():
 # ユーザーインターフェイスの構築
 st.title(" 「ダイエット」を助けるチャットボット")
 st.image("02_diet.png")
-st.write("ダイエットに関して、何にお困りですか？")
+st.write("ダイエットに関して、お悩みですか？　体重、身長、年齢、目標体重、目標期間をおしえてください。　ロードマップを提供します。")
 
 user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)
 
